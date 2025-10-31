@@ -1,0 +1,19 @@
+{
+  "level": "adult",
+  "name": "\ud83c\udf93 Experto",
+  "accuracy": 0.988,
+  "train_accuracy": 0.982375,
+  "number_range": [
+    0,
+    100
+  ],
+  "operations": [
+    "+",
+    "-",
+    "*",
+    "/"
+  ],
+  "samples_trained": 10000,
+  "created_at": "2025-10-31 05:24:12",
+  "version": "1.0"
+}

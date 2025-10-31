@@ -1,0 +1,17 @@
+{
+  "level": "baby",
+  "name": "\ud83d\udc76 Beb\u00e9",
+  "accuracy": 0.682,
+  "train_accuracy": 0.685,
+  "number_range": [
+    0,
+    10
+  ],
+  "operations": [
+    "+",
+    "-"
+  ],
+  "samples_trained": 5000,
+  "created_at": "2025-10-31 05:24:07",
+  "version": "1.0"
+}

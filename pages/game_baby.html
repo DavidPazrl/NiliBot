@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivel Bebé - Nili</title>
+    <link rel="stylesheet" href="../css/game_baby.css">
+</head>
+<body>
+    <div class="header">
+        <div class="level-title"> Nivel: Bebe</div>
+        <div class="header-buttons">
+            <button class="btn btn-back" onclick="goBack()">← Volver</button>
+            <button class="btn btn-reset" onclick="resetGame()">⟳ Reiniciar</button>
+            <button class="btn btn-start" id="startBtn" onclick="startGame()">▶ Iniciar</button>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="player-side nili-side">
+            <div class="player-header">
+                <div class="player-name">NILI IA</div>
+                <div class="robot-container">
+                    <svg class="robot-baby" width="150" height="150" viewBox="0 0 150 150">
+                        <defs>
+                            <linearGradient id="robotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ee5a6f;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="75" cy="20" r="8" fill="#ff6b6b">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <line x1="75" y1="28" x2="75" y2="45" stroke="#ff6b6b" stroke-width="3"/>
+                        <rect x="50" y="45" width="50" height="45" rx="10" fill="url(#robotGrad)"/>
+                        <circle cx="62" cy="62" r="5" fill="#000">
+                            <animate attributeName="r" values="5;0;5" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="88" cy="62" r="5" fill="#000">
+                            <animate attributeName="r" values="5;0;5" dur="3s" begin="0.1s" repeatCount="indefinite"/>
+                        </circle>
+                        <path d="M 60 75 Q 75 80 90 75" stroke="#000" stroke-width="3" fill="none"/>
+                        <rect x="45" y="90" width="60" height="50" rx="12" fill="url(#robotGrad)"/>
+                        <rect x="30" y="95" width="15" height="35" rx="7" fill="#ff6b6b"/>
+                        <rect x="105" y="95" width="15" height="35" rx="7" fill="#ff6b6b"/>
+                        <rect x="55" y="140" width="15" height="25" rx="7" fill="#ff6b6b"/>
+                        <rect x="80" y="140" width="15" height="25" rx="7" fill="#ff6b6b"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-row">
+                    <span class="stat-label">Aciertos</span>
+                    <span class="stat-value" id="niliScore">0/10</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Tiempo Prom.</span>
+                    <span class="stat-value" id="niliAvgTime">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Último Tiempo</span>
+                    <span class="stat-value" id="niliLastTime">--</span>
+                </div>
+            </div>
+
+            <div id="niliMessages"></div>
+
+            <div class="answer-section">
+                <div class="answer-label">Respuesta de Nili</div>
+                <div class="answer-display" id="niliAnswer">
+                    <span class="thinking">ESPERANDO...</span>
+                </div>
+                <div id="niliResult"></div>
+            </div>
+        </div>
+
+        <div class="player-side human-side">
+            <div class="player-header">
+                <div class="player-name">HUMANO</div>
+                <div class="robot-container">
+                    <svg width="150" height="150" viewBox="0 0 150 150">
+                        <circle cx="75" cy="60" r="35" fill="none" stroke="#4ecdc4" stroke-width="3"/>
+                        <circle cx="62" cy="55" r="5" fill="#4ecdc4"/>
+                        <circle cx="88" cy="55" r="5" fill="#4ecdc4"/>
+                        <path d="M 60 70 Q 75 75 90 70" stroke="#4ecdc4" stroke-width="3" fill="none"/>
+                        <rect x="50" y="95" width="50" height="40" rx="5" fill="none" stroke="#4ecdc4" stroke-width="3"/>
+                        <line x1="50" y1="110" x2="100" y2="110" stroke="#4ecdc4" stroke-width="2"/>
+                        <line x1="50" y1="120" x2="100" y2="120" stroke="#4ecdc4" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-row">
+                    <span class="stat-label">Aciertos</span>
+                    <span class="stat-value" id="humanScore">0/10</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Tiempo Prom.</span>
+                    <span class="stat-value" id="humanAvgTime">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Último Tiempo</span>
+                    <span class="stat-value" id="humanLastTime">--</span>
+                </div>
+            </div>
+
+            <div class="answer-section">
+                <div class="answer-label">Tu Respuesta</div>
+                <input 
+                    type="number" 
+                    class="answer-input" 
+                    id="humanAnswer" 
+                    placeholder="?" 
+                    disabled
+                >
+                <button class="submit-btn" id="submitBtn" onclick="submitAnswer()" disabled>
+                    Enviar →
+                </button>
+                <div id="humanResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="operation-display hidden" id="operationDisplay">
+        <div class="progress-text" id="progressText">Pregunta 1/10</div>
+        <div class="operation" id="operation">2 + 2 = ?</div>
+    </div>
+
+    <div class="final-results hidden" id="finalResults">
+        <div class="results-card">
+            <div class="results-title" id="winnerTitle">Resultados</div>
+            
+            <div class="results-comparison">
+                <div class="result-player">
+                    <div class="result-player-name">NILI IA</div>
+                    <div class="result-stat">Aciertos: <strong id="finalNiliScore">0/10</strong></div>
+                    <div class="result-stat">Tiempo Total: <strong id="finalNiliTime">0s</strong></div>
+                    <div class="result-stat">Promedio: <strong id="finalNiliAvg">0s</strong></div>
+                </div>
+                
+                <div class="result-player">
+                    <div class="result-player-name">HUMANO</div>
+                    <div class="result-stat">Aciertos: <strong id="finalHumanScore">0/10</strong></div>
+                    <div class="result-stat">Tiempo Total: <strong id="finalHumanTime">0s</strong></div>
+                    <div class="result-stat">Promedio: <strong id="finalHumanAvg">0s</strong></div>
+                </div>
+            </div>
+
+            <div class="winner-badge" id="winnerBadge">Ganador</div>
+            
+            <button class="btn btn-start" onclick="closeResults()" style="margin-top: 30px;">
+                Continuar
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/game_baby.js"></script>
+</body>
+</html>

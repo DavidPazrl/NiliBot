@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Macabro de ML</title>
+    <link rel="stylesheet" href="../css/quiz.css">
+</head>
+<body>
+    <div class="background-layer"></div>
+
+    <svg class="creepy-eye eye-1" viewBox="0 0 100 60">
+        <defs>
+            <radialGradient id="eyeGrad1">
+                <stop offset="0%" style="stop-color:#2a0000"/>
+                <stop offset="100%" style="stop-color:#1a0000"/>
+            </radialGradient>
+        </defs>
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="1"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="1"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-2" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="2"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="2"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-3" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="3"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="3"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-4" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="4"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="4"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-5" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="5"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="5"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-6" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="6"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="6"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-7" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="7"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="7"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-8" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="8"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="8"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-9" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="9"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="9"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-10" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="10"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="10"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-11" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="11"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="11"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <svg class="creepy-eye eye-12" viewBox="0 0 100 60">
+        <ellipse cx="50" cy="30" rx="48" ry="28" fill="#0d0d0d" stroke="#1a0000" stroke-width="1"/>
+        <line x1="15" y1="15" x2="25" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <line x1="85" y1="15" x2="75" y2="25" stroke="#2a0000" stroke-width="0.5" opacity="0.3"/>
+        <circle class="iris" cx="50" cy="30" r="15" fill="url(#eyeGrad1)" data-eye="12"/>
+        <circle class="pupil" cx="50" cy="30" r="8" fill="#000" data-eye="12"/>
+        <circle cx="53" cy="27" r="3" fill="#3a0000" opacity="0.6"/>
+    </svg>
+
+    <div class="jumpscare-overlay" id="jumpscareOverlay">
+        <div class="jumpscare-content">
+            <video class="jumpscare-video" id="scareVideo1" style="display:none;"><source src="scare1.mp4" type="video/mp4"></video>
+            <video class="jumpscare-video" id="scareVideo2" style="display:none;"><source src="scare2.mp4" type="video/mp4"></video>
+            <video class="jumpscare-video" id="scareVideo3" style="display:none;"><source src="scare3.mp4" type="video/mp4"></video>
+            <video class="jumpscare-video" id="scareVideo4" style="display:none;"><source src="scare4.mp4" type="video/mp4"></video>
+            <video class="jumpscare-video" id="memeVideo" style="display:none;"><source src="meme.mp4" type="video/mp4"></video>
+            <div class="jumpscare-text" id="jumpscareText"></div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop><source src="quiz-music.mp3" type="audio/mpeg"></audio>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Quiz Macabro de ML</h1>
+            <p class="subtitle">Responde antes de que el tiempo se acabe...</p>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-label">TIEMPO RESTANTE</div>
+            <div class="timer-display" id="timerDisplay">30</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-text" id="progressText">Pregunta 1 de 7</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div id="resultsContainer" class="hidden">
+            <div class="results-container">
+                <div class="results-title" id="resultsTitle">Resultados</div>
+                <div class="score" id="finalScore">0/7</div>
+                <div class="score-label">Respuestas Correctas</div>
+                <div class="results-message" id="resultsMessage"></div>
+                <div class="buttons">
+                    <button class="btn btn-next" onclick="restartQuiz()">Reintentar</button>
+                    <button class="btn btn-back" onclick="goBack()">Volver</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-back" onclick="goBack()">Volver al Menu</button>
+        </div>
+    </div>
+    <script src="../js/quiz.js"></script>
+    
+</body>
+</html>
