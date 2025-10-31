@@ -53,10 +53,9 @@ const questions = [
 let currentQuestion = 0, score = 0, selectedAnswer = null, answered = false;
 let timeLeft = 20, timerInterval = null, scareCount = 0, randomScareShown = false;
 const bgMusic = document.getElementById('bgMusic');
-
-
 let bloodDripInterval = null;
 let bloodPoolsCreated = [];
+let isShowingJumpscare = false;
 
 window.addEventListener('load', () => {
     bgMusic.volume = 0.3;
@@ -67,22 +66,22 @@ document.addEventListener('click', () => {
     if (bgMusic.paused) bgMusic.play().catch(() => { });
 }, { once: true });
 
+// Sangre
 
 function createBloodDrip() {
     const timerContainer = document.querySelector('.timer-container');
     if (!timerContainer) return;
-    
+
     const rect = timerContainer.getBoundingClientRect();
     const startX = rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width * 0.8;
     const startY = rect.bottom;
-    
+
     const drip = document.createElement('div');
     drip.className = 'blood-drip';
-    
+
     const size = Math.random() * 12 + 8;
-    const fallDistance = window.innerHeight - startY + 100;
     const duration = Math.random() * 2 + 2;
-    
+
     drip.style.cssText = `
         position: fixed;
         left: ${startX}px;
@@ -102,9 +101,8 @@ function createBloodDrip() {
         box-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
         animation: bloodFall ${duration}s ease-in forwards;
     `;
-    
+
     document.body.appendChild(drip);
-    
 
     setTimeout(() => {
         createBloodPool(startX, window.innerHeight - 50);
@@ -112,14 +110,13 @@ function createBloodDrip() {
     }, duration * 1000);
 }
 
-
 function createBloodPool(x, y) {
     const pool = document.createElement('div');
     pool.className = 'blood-pool';
-    
+
     const size = Math.random() * 80 + 60;
     const rotation = Math.random() * 360;
-    
+
     pool.style.cssText = `
         position: fixed;
         left: ${x}px;
@@ -142,7 +139,7 @@ function createBloodPool(x, y) {
         animation: poolExpand 1s ease-out forwards;
         box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
     `;
-    
+
     document.body.appendChild(pool);
     bloodPoolsCreated.push(pool);
 
@@ -154,24 +151,22 @@ function createBloodPool(x, y) {
     }
 }
 
-
 function createBloodSplatter(targetElement) {
     if (!targetElement) return;
-    
+
     const rect = targetElement.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
 
     for (let i = 0; i < 5; i++) {
         setTimeout(() => {
             const splatter = document.createElement('div');
             splatter.className = 'blood-splatter';
-            
+
             const offsetX = (Math.random() - 0.5) * rect.width;
             const offsetY = (Math.random() - 0.5) * rect.height;
             const size = Math.random() * 40 + 20;
-            
+
             splatter.style.cssText = `
                 position: fixed;
                 left: ${centerX + offsetX}px;
@@ -192,26 +187,23 @@ function createBloodSplatter(targetElement) {
                 animation: splatterAppear 0.4s ease-out forwards;
                 filter: blur(0.8px);
             `;
-            
+
             document.body.appendChild(splatter);
-            
             setTimeout(() => splatter.remove(), 5000);
         }, i * 100);
     }
 }
 
-
 function startBloodDripping() {
     if (bloodDripInterval) return;
-    
 
     const getInterval = () => {
-        if (timeLeft <= 5) return 200;  
-        if (timeLeft <= 10) return 400; 
-        if (timeLeft <= 15) return 700; 
-        return 1000; 
+        if (timeLeft <= 5) return 200;
+        if (timeLeft <= 10) return 400;
+        if (timeLeft <= 15) return 700;
+        return 1000;
     };
-    
+
     bloodDripInterval = setInterval(() => {
         createBloodDrip();
         clearInterval(bloodDripInterval);
@@ -229,10 +221,7 @@ function stopBloodDripping() {
 
 function cleanAllBlood() {
     stopBloodDripping();
-    
-    
     document.querySelectorAll('.blood-drip').forEach(el => el.remove());
-    
 
     bloodPoolsCreated.forEach(pool => {
         if (pool && pool.parentNode) {
@@ -241,11 +230,11 @@ function cleanAllBlood() {
         }
     });
     bloodPoolsCreated = [];
-    
 
     document.querySelectorAll('.blood-splatter').forEach(el => el.remove());
 }
 
+// Animaciones de sangre
 if (!document.getElementById('bloodAnimations')) {
     const style = document.createElement('style');
     style.id = 'bloodAnimations';
@@ -300,13 +289,15 @@ if (!document.getElementById('bloodAnimations')) {
     document.head.appendChild(style);
 }
 
+// Ojos
+
 document.addEventListener('mousemove', (e) => {
     for (let i = 1; i <= 12; i++) {
         const iris = document.querySelector(`.iris[data-eye="${i}"]`);
         const pupil = document.querySelector(`.pupil[data-eye="${i}"]`);
         const eyeElement = document.querySelector(`.eye-${i}`);
         if (!eyeElement || !iris || !pupil) continue;
-        
+
         const rect = eyeElement.getBoundingClientRect();
         const eyeX = rect.left + rect.width / 2;
         const eyeY = rect.top + rect.height / 2;
@@ -323,6 +314,7 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+// videos
 
 const scareVideos = [
     { id: 'scareVideo1', text: '¡EQUIVOCADO!', isMeme: false },
@@ -333,12 +325,15 @@ const scareVideos = [
 ];
 
 function triggerJumpscare(reason) {
+    if (isShowingJumpscare) return;
+    isShowingJumpscare = true;
+
     const overlay = document.getElementById('jumpscareOverlay');
     const text = document.getElementById('jumpscareText');
-    
+
     cleanAllBlood();
     bgMusic.volume = 0.1;
-    
+
     scareVideos.forEach(v => {
         const vid = document.getElementById(v.id);
         if (vid) {
@@ -347,51 +342,58 @@ function triggerJumpscare(reason) {
             vid.currentTime = 0;
         }
     });
-    
+
     let selected = (scareCount > 0 && scareCount % 5 === 0) ? scareVideos[4] : scareVideos[Math.floor(Math.random() * 4)];
     scareCount++;
-    
+
     const video = document.getElementById(selected.id);
-    
+
     if (video && video.src) {
         video.style.display = 'block';
         video.style.maxWidth = '95vw';
         video.style.maxHeight = '95vh';
-        
+
         text.textContent = selected.text;
         text.style.color = selected.isMeme ? '#888' : '#f00';
         text.style.fontSize = '3.5em';
-        
+
         overlay.classList.add('active');
-        
+        overlay.style.display = 'flex';
+
         video.play().then(() => {
-            console.log('Video reproduciendo:', selected.id);
+            console.log('✅ Video reproduciendo:', selected.id);
         }).catch(err => {
-            console.warn('Error reproduciendo video:', err);
+            console.warn('⚠️ Error reproduciendo video:', err);
             showTextJumpscare(selected.text);
         });
-        
+
         if (!selected.isMeme) {
             const scream = new Audio('scream.mp3');
             scream.volume = 0.8;
             scream.play().catch(() => console.log('Audio no disponible'));
         }
     } else {
-        console.warn('Video no encontrado:', selected.id);
+        console.warn('⚠️ Video no encontrado:', selected.id);
+        overlay.classList.add('active');
+        overlay.style.display = 'flex';
         showTextJumpscare(selected.text);
     }
-    
+
     setTimeout(() => {
         overlay.classList.remove('active');
+        overlay.style.display = 'none';
+
         if (video) {
             video.pause();
             video.currentTime = 0;
             video.style.display = 'none';
         }
+
         bgMusic.volume = 0.3;
-        
-        if (currentQuestion < questions.length - 1) nextQuestion();
-        else showResults();
+        isShowingJumpscare = false;
+
+        goToNextQuestion();
+
     }, selected.isMeme ? 3000 : 2500);
 }
 
@@ -403,18 +405,20 @@ function showTextJumpscare(message) {
     text.style.textShadow = '0 0 30px #f00, 0 0 60px #f00';
 }
 
+// Tiempo
+
 function startTimer() {
     timeLeft = 20;
     updateTimerDisplay();
-    
+
     timerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
-        
+
         if (timeLeft === 15) {
             startBloodDripping();
         }
-        
+
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             handleTimeout();
@@ -434,7 +438,7 @@ function updateTimerDisplay() {
     const display = document.getElementById('timerDisplay');
     display.textContent = timeLeft;
     display.className = 'timer-display';
-    
+
     if (timeLeft <= 5) {
         display.classList.add('critical');
     } else if (timeLeft <= 10) {
@@ -446,23 +450,24 @@ function handleTimeout() {
     if (answered) return;
     answered = true;
     stopTimer();
-    
+
     const q = questions[currentQuestion];
     const options = document.querySelectorAll('.option');
-    
+
     options.forEach(opt => {
         opt.style.cursor = 'default';
         opt.onclick = null;
     });
-    
+
     options[q.correct].classList.add('correct');
-    
+
     const feedback = document.getElementById('feedback');
     feedback.className = 'feedback feedback-incorrect';
     feedback.innerHTML = `<strong>⏰ TIEMPO AGOTADO</strong><div class="explanation">${q.explanation}</div>`;
-    
+    feedback.classList.remove('hidden');
+
     createBloodSplatter(options[q.correct]);
-    
+
     setTimeout(() => triggerJumpscare('timeout'), 1000);
 }
 
@@ -473,13 +478,19 @@ function checkRandomScare() {
     }
 }
 
+
 function loadQuestion() {
+    if (currentQuestion >= questions.length) {
+        showResults();
+        return;
+    }
+
     const q = questions[currentQuestion];
     const container = document.getElementById('quizContainer');
-    
+
     document.getElementById('progressText').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
     document.getElementById('progressFill').style.width = ((currentQuestion + 1) / questions.length * 100) + '%';
-    
+
     container.innerHTML = `
         <div class="question-card">
             <span class="difficulty-badge difficulty-${q.difficulty}">
@@ -500,13 +511,13 @@ function loadQuestion() {
                 <button class="btn btn-next" id="checkBtn" onclick="checkAnswer()" disabled>
                     Verificar
                 </button>
-                <button class="btn btn-next hidden" id="nextBtn" onclick="nextQuestion()">
+                <button class="btn btn-next hidden" id="nextBtn" onclick="manualNextQuestion()">
                     ${currentQuestion < questions.length - 1 ? 'Siguiente' : 'Ver Resultados'}
                 </button>
             </div>
         </div>
     `;
-    
+
     selectedAnswer = null;
     answered = false;
     startTimer();
@@ -525,40 +536,45 @@ function checkAnswer() {
     if (answered || selectedAnswer === null) return;
     answered = true;
     stopTimer();
-    
+
     const q = questions[currentQuestion];
     const isCorrect = selectedAnswer === q.correct;
     if (isCorrect) score++;
-    
+
     const options = document.querySelectorAll('.option');
     options[q.correct].classList.add('correct');
     if (!isCorrect) options[selectedAnswer].classList.add('incorrect');
-    
+
     const feedback = document.getElementById('feedback');
     feedback.className = `feedback feedback-${isCorrect ? 'correct' : 'incorrect'}`;
     feedback.innerHTML = `<strong>${isCorrect ? '✓ ¡Correcto!' : '✗ Incorrecto'}</strong><div class="explanation">${q.explanation}</div>`;
     feedback.classList.remove('hidden');
-    
+
     if (!isCorrect) {
         createBloodSplatter(options[selectedAnswer]);
     }
-    
+
     options.forEach(opt => {
         opt.style.cursor = 'default';
         opt.onclick = null;
     });
-    
+
     document.getElementById('checkBtn').classList.add('hidden');
     document.getElementById('nextBtn').classList.remove('hidden');
-    
+
     if (!isCorrect) {
         setTimeout(() => triggerJumpscare('wrong'), 1500);
     }
 }
 
-function nextQuestion() {
+function manualNextQuestion() {
     stopTimer();
+    goToNextQuestion();
+}
+
+function goToNextQuestion() {
     currentQuestion++;
+
     if (currentQuestion < questions.length) {
         loadQuestion();
     } else {
@@ -569,15 +585,15 @@ function nextQuestion() {
 function showResults() {
     stopTimer();
     bgMusic.pause();
-    
+
     document.getElementById('quizContainer').classList.add('hidden');
     document.getElementById('resultsContainer').classList.remove('hidden');
     document.querySelector('.progress-container').classList.add('hidden');
     document.querySelector('.timer-container').classList.add('hidden');
-    
+
     const percentage = (score / questions.length * 100).toFixed(0);
     document.getElementById('finalScore').textContent = `${score}/${questions.length}`;
-    
+
     let title, message;
     if (percentage >= 85) {
         title = ' SOBREVIVISTE';
@@ -592,7 +608,7 @@ function showResults() {
         title = ' No Sobreviviste';
         message = 'Las tinieblas del desconocimiento te consumieron. Estudia los rituales del Machine Learning y regresa... si te atreves.';
     }
-    
+
     document.getElementById('resultsTitle').textContent = title;
     document.getElementById('resultsMessage').textContent = message;
 }
@@ -602,17 +618,18 @@ function restartQuiz() {
     score = 0;
     scareCount = 0;
     randomScareShown = false;
+    isShowingJumpscare = false;
     stopTimer();
     cleanAllBlood();
-    
+
     bgMusic.currentTime = 0;
     bgMusic.play().catch(() => { });
-    
+
     document.getElementById('quizContainer').classList.remove('hidden');
     document.getElementById('resultsContainer').classList.add('hidden');
     document.querySelector('.progress-container').classList.remove('hidden');
     document.querySelector('.timer-container').classList.remove('hidden');
-    
+
     loadQuestion();
 }
 
