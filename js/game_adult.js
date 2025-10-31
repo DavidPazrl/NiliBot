@@ -11,7 +11,7 @@ const LEVEL_CONFIG = {
     useModel: true,
     modelEndpoint: 'http://localhost:5000/predict',
     modelLevel: 'adult',
-
+    //======================================================
     messages: {
         correct: [
             'Demasiado fácil',
@@ -128,7 +128,7 @@ function nextQuestion() {
     questionStartTime = Date.now();
     niliResponds();
 }
-
+//======================================================
 function niliResponds() {
     const responseTime = LEVEL_CONFIG.minTime + Math.random() * (LEVEL_CONFIG.maxTime - LEVEL_CONFIG.minTime);
 
@@ -153,7 +153,7 @@ function niliResponds() {
         }
     }, responseTime);
 }
-
+//======================================================
 async function getNiliAnswerFromModel() {
     const operation = document.getElementById('operation').textContent.replace(' = ?', '');
 
@@ -169,7 +169,7 @@ async function getNiliAnswerFromModel() {
     const data = await response.json();
     return { answer: data.answer };
 }
-
+//======================================================
 function getDemoAnswer() {
     if (Math.random() < LEVEL_CONFIG.accuracy) {
         return currentAnswer;

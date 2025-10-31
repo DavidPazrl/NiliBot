@@ -361,9 +361,9 @@ function triggerJumpscare(reason) {
         overlay.style.display = 'flex';
 
         video.play().then(() => {
-            console.log('✅ Video reproduciendo:', selected.id);
+            console.log(' Video reproduciendo:', selected.id);
         }).catch(err => {
-            console.warn('⚠️ Error reproduciendo video:', err);
+            console.warn(' Error reproduciendo video:', err);
             showTextJumpscare(selected.text);
         });
 
@@ -373,7 +373,7 @@ function triggerJumpscare(reason) {
             scream.play().catch(() => console.log('Audio no disponible'));
         }
     } else {
-        console.warn('⚠️ Video no encontrado:', selected.id);
+        console.warn(' Video no encontrado:', selected.id);
         overlay.classList.add('active');
         overlay.style.display = 'flex';
         showTextJumpscare(selected.text);
@@ -463,7 +463,7 @@ function handleTimeout() {
 
     const feedback = document.getElementById('feedback');
     feedback.className = 'feedback feedback-incorrect';
-    feedback.innerHTML = `<strong>⏰ TIEMPO AGOTADO</strong><div class="explanation">${q.explanation}</div>`;
+    feedback.innerHTML = `<strong> TIEMPO AGOTADO</strong><div class="explanation">${q.explanation}</div>`;
     feedback.classList.remove('hidden');
 
     createBloodSplatter(options[q.correct]);
