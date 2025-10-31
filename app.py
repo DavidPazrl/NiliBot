@@ -20,7 +20,7 @@ def predict():
     op_map = {'+': 0, '-': 1, '*': 2}
     X = np.array([[num1, num2, op_map[op]]])
 
-    # Seleccionar el modelo correcto según el nivel
+    # Seleccionar el modelo correcto segun el nivel
     model = models.get(level, models['baby'])
     y_pred = model.predict(X)[0]
 
